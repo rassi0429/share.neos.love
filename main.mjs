@@ -20,7 +20,7 @@ app.post("/v1/upload/:id", upload.single('file'), async (req, res) => {
   const room = roomMap.get("/v1/room/" +  req.params.id)
   if (!room) return
   room.forEach((client) => {
-    client.send("http://localhost:3000/file/" + req.file.filename)
+    client.send("https://share.neos.love/file/" + req.file.filename)
   })
 })
 
