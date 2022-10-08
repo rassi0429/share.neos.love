@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeosShare v1</title>
+</head>
+
+<body>
+    <h1>NeosSchare v1</h1>
+    <input type="number" placeholder="roomID" id="roomId" />
+    <button onclick="goRoom()">確定</button>
+    <script>
+        console.log("script loaded!")
+        function goRoom() {
+            const id = document.getElementById("roomId")
+            window.location.href = "room.html?id=" + id.value
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<p>room : <span id="roomId"></span></p>
+
+<input id="image" type="file" accept=".png,.jpg,.jpeg">
+<button onclick="send()">送信</button>
+
+<script>
+  function send() {
+    const searchParams = new URLSearchParams(window.location.search)
+    const roomId = searchParams.get('id')
+    const formData = new FormData();
+    const imageData = document.getElementById("image").files[0]
+    formData.append('file', imageData);
+    const request = new Request('/v1/upload/' + roomId, {
+      method: 'POST',
+      body: formData,
+    });
+    const response = fetch(request);
+  }
+
+  window.onload = () => {
+    const searchParams = new URLSearchParams(window.location.search)
+    const roomId = searchParams.get('id')
+    console.log(roomId)
+    document.getElementById("roomId").innerText = roomId
+  }
+</script>
+</body>
+</html>
