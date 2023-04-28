@@ -81,11 +81,15 @@
     fileArea.classList.remove('dragenter');
     const files = event.dataTransfer.files;
     fileInput.files = files;
-    photoPreview('onChange',files[0]);
+    for (const file of files) {
+      photoPreview('onChange', file);
+    }
   });
   fileInput.addEventListener('change', function(event){
     event.preventDefault();
-    photoPreview('onChange', fileInput.files[0]);
+    for (const file of fileInput.files) {
+      photoPreview('onChange', file);
+    }
   });
 
   function photoPreview(event, f = null) {
@@ -112,16 +116,18 @@
     reader.readAsDataURL(file);
   }
   function send() {
-    const searchParams = new URLSearchParams(window.location.search)
-    const roomId = searchParams.get('id')
-    const formData = new FormData();
-    const imageData = document.getElementById("imageInput").files[0]
-    formData.append('file', imageData);
-    const request = new Request('/v1/upload/' + roomId, {
-      method: 'POST',
-      body: formData,
-    });
-    const response = fetch(request);
+    const files = document.getElementById("imageInput").files;
+    for (const file of files) {
+      const searchParams = new URLSearchParams(window.location.search)
+      const roomId = searchParams.get('id')
+      const formData = new FormData();
+      formData.append('file', file);
+      const request = new Request('/v1/upload/' + roomId, {
+        method: 'POST',
+        body: formData,
+      });
+      const response = fetch(request);
+    }
   }
 
   window.onload = () => {
