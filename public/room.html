@@ -14,7 +14,7 @@
     <p>
         <input id="imageInput" type="file" accept=".png,.jpg,.jpeg">
     </p>
-    <button id="sendButton" onclick="send()" class="button">送信</button>
+    <button id="sendButton" onclick="send()" class="sendButton">送信</button>
     <div id="previewArea"></div>
 </div>
 
@@ -44,11 +44,7 @@
         max-width: 100%;
         max-height: 100%;
     }
-    .drag-drop-buttons input{
-        margin-top: 20px;
-        font-size: 1.2em;
-    }
-    .button {
+    .sendButton {
         display: none;
         background-color: #4CAF50;
         border: none;
@@ -63,7 +59,7 @@
         border-radius: 8px;
         width: 100%;
     }
-    .button:hover {
+    .sendButton:hover {
         background-color: #3e8e41;
         color: white;
     }
