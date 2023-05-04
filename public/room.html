@@ -14,6 +14,7 @@
     <p>
         <input id="imageInput" type="file" accept=".png,.jpg,.jpeg">
     </p>
+    <input type="checkbox" id="isContinuous" name="isContinuous" value="isContinuous" /><label for="isContinuous" style="margin-left: 4px">逐次アップロード（送信ボタンを押さなくても自動でアップロードされます）</label>
     <button id="sendButton" onclick="send()" class="sendButton">送信</button>
     <div id="previewArea"></div>
 </div>
@@ -82,6 +83,9 @@
     for (const image of images) {
       photoPreview('onChange', image);
     }
+    if(document.getElementById("isContinuous").checked) {
+      send();
+    }
   };
   fileArea.addEventListener('dragover', function(event){
     event.preventDefault();
@@ -99,11 +103,17 @@
     for (const file of files) {
       photoPreview('onChange', file);
     }
+    if(document.getElementById("isContinuous").checked) {
+      send();
+    }
   });
   fileInput.addEventListener('change', function(event){
     event.preventDefault();
     for (const file of fileInput.files) {
       photoPreview('onChange', file);
+    }
+    if(document.getElementById("isContinuous").checked) {
+      send();
     }
   });
 
