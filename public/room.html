@@ -70,10 +70,17 @@
   const fileInput = document.getElementById('imageInput');
   document.onpaste = function(event) {
     const items = event.clipboardData.items;
+    const dt = new DataTransfer();
     for (const item of items) {
       if (item.type.indexOf("image") === -1) continue;
       const blob = item.getAsFile();
-      photoPreview('onPaste', blob);
+      dt.items.add(new File([blob], "image.png"));
+    }
+    const images = dt.files;
+    if (images.length === 0) return;
+    fileInput.files = images;
+    for (const image of images) {
+      photoPreview('onChange', image);
     }
   };
   fileArea.addEventListener('dragover', function(event){
