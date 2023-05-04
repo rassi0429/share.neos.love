@@ -68,6 +68,14 @@
 <script>
   const fileArea = document.getElementById('dragDropArea');
   const fileInput = document.getElementById('imageInput');
+  document.onpaste = function(event) {
+    const items = event.clipboardData.items;
+    for (const item of items) {
+      if (item.type.indexOf("image") === -1) continue;
+      const blob = item.getAsFile();
+      photoPreview('onPaste', blob);
+    }
+  };
   fileArea.addEventListener('dragover', function(event){
     event.preventDefault();
     fileArea.classList.add('dragover');
