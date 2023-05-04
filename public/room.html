@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>NeosShare v1</title>
 </head>
 <body>
 <div id="dragDropArea">
-    <p>room : <span id="roomId"></span></p>
+    <p>room : <span id="roomId" contenteditable></span></p>
     <p>ここにファイルをドロップ</p>
     <p>または</p>
     <p>
@@ -66,8 +66,19 @@
 </style>
 
 <script>
+  const titlePrefix = 'NeosShare v1: ';
+  document.title = titlePrefix + (new URLSearchParams(window.location.search)).get('id');
+
   const fileArea = document.getElementById('dragDropArea');
   const fileInput = document.getElementById('imageInput');
+  const roomIdField = document.getElementById('roomId');
+  roomIdField.addEventListener('input', function(event){
+    const roomId = event.target.innerText;
+    const url = new URL(window.location.href);
+    url.searchParams.set('id', roomId);
+    window.history.replaceState(null, null, url);
+    document.title = titlePrefix + roomId;
+  });
   document.onpaste = function(event) {
     const items = event.clipboardData.items;
     for (const item of items) {
